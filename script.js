@@ -1,4 +1,26 @@
 const container = document.getElementById('container')
+const darkmodeBtn = document.getElementById("darkmodeBtn")
+
+darkmodeBtn.addEventListener("click", () => {
+
+  const darkmode = localStorage.getItem("darkmode")
+  localStorage.setItem("darkmode", darkmode === "light" ? "dark" : "light")
+
+  const currentMode = localStorage.getItem("darkmode")
+  console.log(currentMode);
+
+  const body = document.getElementById("body")
+
+  if (currentMode === "light") {
+    body.classList.remove("bg-slate-900", "text-white")
+    body.classList.add("bg-white", "text-black")
+  } else {
+    body.classList.remove("bg-white", "text-black")
+    body.classList.add("bg-slate-900", "text-white")
+  }
+
+})
+
 
 const getAllProduct = async () => {
   try {
@@ -40,3 +62,17 @@ const renderItems = (products) => {
     container.append(div)
   });
 }
+
+window.addEventListener("DOMContentLoaded", () => {
+  const savedMode = localStorage.getItem("darkmode") || "light"
+
+  const body = document.getElementById("body")
+
+  if (savedMode === "light") {
+    body.classList.remove("bg-slate-900", "text-white")
+    body.classList.add("bg-white", "text-black")
+  } else {
+    body.classList.remove("bg-white", "text-black")
+    body.classList.add("bg-slate-900", "text-white")
+  }
+})
