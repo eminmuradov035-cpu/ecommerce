@@ -1,6 +1,7 @@
 const emailInput = document.getElementById('emailInput')
 const passwordInput = document.getElementById('passwordInput')
 const loginBtn = document.getElementById('loginInput')
+const RememberMe = document.getElementById('RememberMe')
 
 const darkmodeBtn = document.getElementById("darkmodeBtn")
 
@@ -58,6 +59,14 @@ const loginUser = async () => {
       sessionStorage.setItem("refrshToken", data.accesToken)
 
       window.location.href = "http://127.0.0.1:5500/index.html"
+
+if(RememberMe.checked){
+  localStorage.setItem("accesToken", data.accesToken)
+  localStorage.setItem("refreshToken", data.refreshToken)
+} else {
+  sessionStorage.setItem("accesToken", data.accesToken)
+  sessionStorage.setItem("refreshToken", data.refreshToken)
+}
     } else {
       alert("Email or password is incorrect!")
     }
