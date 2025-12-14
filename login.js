@@ -55,16 +55,14 @@ const loginUser = async () => {
     if (res.ok) {
       const data = await res.json()
       console.log(data)
-      sessionStorage.setItem("accesToken", data.accesToken)
-      sessionStorage.setItem("refrshToken", data.accesToken)
 
       window.location.href = "http://127.0.0.1:5500/index.html"
 
 if(RememberMe.checked){
-  localStorage.setItem("accesToken", data.accesToken)
+  localStorage.setItem("accessToken", data.accessToken)
   localStorage.setItem("refreshToken", data.refreshToken)
 } else {
-  sessionStorage.setItem("accesToken", data.accesToken)
+  sessionStorage.setItem("accessToken", data.accessToken)
   sessionStorage.setItem("refreshToken", data.refreshToken)
 }
     } else {

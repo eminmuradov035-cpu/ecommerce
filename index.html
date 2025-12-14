@@ -7,7 +7,7 @@
     <script defer src="./script.js"></script>
     <title>Document</title>
 </head>
-<body id="body">
+<body id="body" class="transition-all duration-900">
     <main class="w-full">
         <nav class="border-b border-zinc-100 p-10 flex items-center justify-between">
 
@@ -17,10 +17,11 @@
 
                 <button class="w-40 h-10 rounded-sm bg-red-500 text-white font-bold cursor-pointer transition delay-150 duration-300 ease-in-out hover:-translate-y-1 hover:scale-110" id="darkmodeBtn">dark mode</button>
         
-                <div class="w-[245px] h-10 relative bg-zinc-200 rounded-sm">
+                <div class="w-[245px] h-10 relative bg-zinc-600 rounded-sm">
                     <input 
-                        class="w-full h-full pl-5 text-xs placeholder:text-xs appearance-none bg-transparent outline-none"
-                        type="text"
+                    id="searchInput"
+                        class="w-full h-full pl-5 text-xs text-white placeholder:text-xs appearance-none bg-transparent outline-none"
+                        type="search"
                         placeholder="What are you looking for?"
                     >
                     <img class="absolute right-3 top-2 w-6 h-6" src="firstpage/Component 2.svg" alt="">
@@ -45,13 +46,7 @@
 
             <h2 class="text-[36px] font-bold">Browse By Category</h2>
 
-            <div class="flex gap-[30px] mt-[50px]">
-
-            <img class="transition delay-150 duration-300 ease-in-out hover:-translate-y-1 hover:scale-110" src="firstpage/Phone.svg" alt="">
-            <img class="transition delay-150 duration-300 ease-in-out hover:-translate-y-1 hover:scale-110" src="firstpage/Fashion.svg" alt="">
-            <img class="transition delay-150 duration-300 ease-in-out hover:-translate-y-1 hover:scale-110" src="firstpage/furniture.svg" alt="">
-
-            </div>
+            <div id="categoriesContainer" class="flex gap-[30px]"></div>
 
         </section>
 
@@ -66,13 +61,13 @@
     
                 </div>
     
-                <h2 class="text-[36px] font-bold mt-[20px]">Explore Our Products</h2> 
+                <h2 id="productsTitle" class="text-[36px] font-bold mt-[20px]">Explore Our Products</h2> 
 
              <div id="container" class="grid grid-cols-4 w-full gap-8 py-10"></div>
 
                 <div class="flex justify-between mb-[235px]">
                     
-                <button class="text-white bg-[#DB4444] w-[179px] h-[56px] pt-[16px] pr-[48px] pb-[16px] pl-[48px] ml-[580px] rounded-sm transition delay-150 duration-300 ease-in-out hover:-translate-y-1 hover:scale-110 cursor-pointer" id="wiewmoreBtn">View More</button>
+                <button class="text-white bg-[#DB4444] w-[179px] h-[56px] pt-[16px] pr-[48px] pb-[16px] pl-[48px] ml-[580px] rounded-sm transition delay-150 duration-300 ease-in-out hover:-translate-y-1 hover:scale-110 cursor-pointer" id="viewMoreBtn">View More</button>
 
                 <img class="w-[46px] h-[46px] mr-[10px] transition delay-150 duration-300 ease-in-out hover:-translate-y-1 hover:scale-110" src="firstpage/arrow.svg" alt="">
 
