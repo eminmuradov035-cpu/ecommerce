@@ -1,7 +1,20 @@
 const emailInput = document.getElementById('emailInput')
 const passwordInput = document.getElementById('passwordInput')
 const loginBtn = document.getElementById('loginInput')
-const RememberMe = document.getElementById('RememberMe')
+const rememberMe = document.getElementById('RememberMe')
+const passwordToggle = document.getElementById('passwordToggle')
+const eyeIcon = document.getElementById('eyeIcon')
+
+passwordToggle.addEventListener("click", () => {
+  let isVisible = passwordInput.getAttribute('type') === 'text' ? true : false
+  if (!isVisible) {
+    eyeIcon.setAttribute('src', './assets/icons/eye-closed.svg')
+    passwordInput.setAttribute('type', 'text')
+  } else {
+    eyeIcon.setAttribute('src', './assets/icons/eye.svg')
+    passwordInput.setAttribute('type', 'password')
+  }
+})
 
 const darkmodeBtn = document.getElementById("darkmodeBtn")
 
@@ -54,17 +67,19 @@ const loginUser = async () => {
 
     if (res.ok) {
       const data = await res.json()
-      console.log(data)
+
+      localStorage.clear()
+      sessionStorage.clear()
+
+      if (rememberMe.checked) {
+        localStorage.setItem("accessToken", data.accessToken)
+        localStorage.setItem("refreshToken", data.refreshToken)
+      } else {
+        sessionStorage.setItem("accessToken", data.accessToken)
+        sessionStorage.setItem("refreshToken", data.refreshToken)
+      }
 
       window.location.href = "http://127.0.0.1:5500/index.html"
-
-if(RememberMe.checked){
-  localStorage.setItem("accessToken", data.accessToken)
-  localStorage.setItem("refreshToken", data.refreshToken)
-} else {
-  sessionStorage.setItem("accessToken", data.accessToken)
-  sessionStorage.setItem("refreshToken", data.refreshToken)
-}
     } else {
       alert("Email or password is incorrect!")
     }

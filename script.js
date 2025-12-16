@@ -3,49 +3,46 @@ const darkmodeBtn = document.getElementById("darkmodeBtn")
 const viewMoreBtn = document.getElementById('viewMoreBtn')
 const categoriesContainer = document.getElementById('categoriesContainer')
 const productsTitle = document.getElementById('productsTitle')
-const searchInput = document.getElementById('searchInput')
+const searchInput = document.getElementById("searchInput")
 
-
-let selectedCatecory = ''
+let selectedCategory = ''
 let searchTerm = ''
 
 searchInput.addEventListener("input", (e) => {
+  selectedCategory = ''
   searchTerm = e.target.value
-  if (e.target.value.length >= 2) getAllProduct()
+  productsTitle.innerText = e.target.value
+  getAllProduct()
 })
 
 const categories = ['electronics', 'clothing', 'books', 'furniture', 'toys', 'groceries', 'beauty', 'sports', 'automotive', 'other']
 
-categories.forEach( category => {
+categories.forEach(category => {
   const button = document.createElement('button')
   button.innerText = category
-  button.classList.add("border", "border-zinc-300", "p-5", "rounded-lg", "hover:bg-red-500", "font-bold", "hover:cursor-pointer", "categoryBtns")
+  button.classList.add("border", "border-zinc-300", "p-5", "rounded-lg", "hover:cursor-pointer", "hover:bg-zinc-100", "categoryBtns")
+
   button.addEventListener('click', () => {
-    selectedCatecory = category
-    productsTitle.innerText = category
-    button.classList.add('!border-red-600')
+    selectedCategory = ''
+    removeSelect()
+    selectedCategory = category
+    searchTerm = ''
+    productsTitle.innerText = category.toUpperCase()
+    button.classList.add("!border-red-500")
     getAllProduct()
   })
   categoriesContainer.append(button)
 })
 
-let categoryBtns = Array.from(document.getElementsByClassName('categoryBtns'))
+function removeSelect() {
+  let categoryBtns = Array.from(document.getElementsByClassName('categoryBtns'))
 
-categoryBtns.forEach(btn => {
-  btn.addEventListener('click', () => {
-    selectedCatecory = btn.innerText
-
-    categoryBtns.forEach(btn => {
-      btn.classList.remove('!border-red-600')
-    })
-
-    btn.classList.add('!border-red-600')
-
-    getAllProduct()
+  categoryBtns.forEach(btn => {
+    btn.classList.remove("!border-red-500")
   })
-})
+}
 
-let limit = 8 
+let limit = 8
 
 darkmodeBtn.addEventListener("click", () => {
 
@@ -67,38 +64,50 @@ darkmodeBtn.addEventListener("click", () => {
 
 })
 
+
 viewMoreBtn.addEventListener("click", () => {
-  limit += 8 
+  limit += 8
   getAllProduct()
 })
 
 async function getAllProduct() {
   try {
-    let url = `https://ilkinibadov.com/api/v1/products?page=1&limit=${limit}`
+    let url = ''
 
-    if(selectedCatecory){
-      url = `https://ilkinibadov.com/api/v1/products/category/${selectedCatecory}`
+    if (!selectedCategory && !searchTerm) {
+      url = `https://ilkinibadov.com/api/v1/products?page=1&limit=${limit}`
     }
 
-    if(searchTerm.length >= 3){
+    if (selectedCategory) {
+      url = `https://ilkinibadov.com/api/v1/products/category/${selectedCategory}`
+    }
+
+    if (searchTerm.length >= 3) {
       url = `https://ilkinibadov.com/api/v1/search?searchterm=${searchTerm}`
     }
 
-     container.innerHTML = ''
+    container.innerHTML = ''
     const res = await fetch(url)
-   
-    if(res.ok){
+
+    if (res.status === 404) {
+      container.innerHTML = ''
+      const h2 = document.createElement('h2')
+      h2.innerText = "No product found"
+      container.append(h2)
+    }
+
+    if (res.ok) {
       const data = await res.json()
-      let renderData = data.products 
-      
-  
-      if(selectedCatecory){
+      let renderData = data.products
+
+      if (selectedCategory) {
         renderData = data
       }
-  
-      if(searchTerm.length >= 3){
+
+      if (searchTerm.length >= 3) {
         renderData = data.content
       }
+
       renderItems(renderData)
       limit >= data.totalProducts && viewMoreBtn.classList.add('hidden')
     }
@@ -106,38 +115,43 @@ async function getAllProduct() {
     console.error(error);
   }
 }
+
 getAllProduct()
 
 const renderItems = (products) => {
-  console.log(products);
-  products.forEach(product => {
-    const div = document.createElement('div')
-    const img = document.createElement('img')
-    const h3 = document.createElement('h3')
-    const p = document.createElement('p')
-    const span = document.createElement('span')
+  if (products.length) {
+    products.forEach(product => {
+      const div = document.createElement('div')
+      const img = document.createElement('img')
+      const h3 = document.createElement('h3')
+      const p = document.createElement('p')
+      const span = document.createElement('span')
+      const a = document.createElement('a')
 
-    img.src = searchTerm.length >= 3 ? product.image : product.images[0]
-    img.classList.add('size-[200px]', 'object-contain', 'ml-15')
+      img.src = searchTerm.length >= 3 ? product.image : product.images[0]
+      img.classList.add('size-[350px]', 'object-contain', 'mx-auto')
 
-    h3.innerText = product.title
-    h3.classList.add("font-bold", 'text-xl')
+      h3.innerText = product.title
+      h3.classList.add("font-bold", 'text-xl')
 
-    p.innerText = product.description
-    p.classList.add('text-x')
+      p.innerText = product.description || ''
+      p.classList.add('text-xs')
 
-    span.innerText = `${product.currency} ${product.price}`
-    span.classList.add('text-red-500', 'font-bold')
+      span.innerText = `${product.currency} ${product.price}`
+      span.classList.add('text-red-500', 'font-bold')
 
-    div.classList.add('border', 'border-zinc-300', 'p-3', 'rounded-xl', 'flex', 'flex-col', 'justify-center', 'gap-4', 'shadow-xl', 'cursor-pointer')
+      div.classList.add('w-full', 'h-full', 'border', 'border-zinc-300', 'p-3', 'rounded-xl', 'flex', 'flex-col', 'justify-center', 'gap-4', 'shadow-xl', 'cursor-pointer')
+      a.classList.add('w-full', 'h-full')
+      a.setAttribute('href', `http://127.0.0.1:5500/product.html?id=${product._id || product.id}`)
 
-    div.append(img)
-    div.append(h3)
-    div.append(p)
-    div.append(span)
-    container.append(div)
-  });
-
+      div.append(img)
+      div.append(h3)
+      div.append(p)
+      div.append(span)
+      a.append(div)
+      container.append(a)
+    });
+  }
 }
 
 window.addEventListener("DOMContentLoaded", () => {

@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <script defer src="./product.js"></script>
+    <script type="module" defer src="./basket.js"></script>
     <title>Document</title>
 </head>
 
@@ -39,103 +39,24 @@
 
         </nav>
 
-        <section class="flex justify-around p-[100px]">
+        <section>
 
-            <div class="flex gap-10">
+            <div class="flex justify-between justify-around pt-[73px]">
 
-                <div id="images" class="flex flex-col gap-10"></div>
+                <h3 class="text-[40px] font-regular pl-[90px]">Basket</h3>
 
-                <img id="bigImg" class="size-[560px] object-contain border border-zinc-300"
-                    src="https://www.shutterstock.com/image-vector/missing-picture-page-website-design-600nw-1552421075.jpg"
-                    alt="">
-
-            </div>
-
-            <div class="flex flex-col gap-4 ">
-
-                <h1 id="title" class="text-[24px] font-semibold"></h1>
-
-                <p id="stock" class="border-l-[1px] border-zinc-300 text-[18px] flex pl-4"></p>
-
-                <p id="price" class="text-[24px] font-regular"></p>
-
-                <p id="description"
-                    class="text-[14px] border-b-100% border-zinc-300 border-b-[1px] pb-[24px] mb-[135px]"></p>
-
-                <div class="flex gap-4">
-
-                    <div
-                        class="flex justify-between items-center border-[1px] border-zinc-300 w-[159px] h-[44px] rounded-sm">
-
-                        <button id="remove"
-                            class="bg-white text-black w-[40px] h-full border-r-[1px] border-zinc-300 cursor-pointer text-[30px] flex justify-center items-center pb-[5px]">-</button>
-
-                        <p id="count"></p>
-
-                        <button id="add"
-                            class="bg-[#DB4444] text-white w-[40px] h-full border-l-[1px] border-zinc-300 cursor-pointer text-[30px] flex justify-center items-center pb-[5px]">+</button>
-
-                    </div>
-
-                    <button id="addToBasketBtn" class="bg-[#DB4444] text-white w-[224px] h-[44px] rounded-sm cursor-pointer">Add to
-                        Basket</button>
-
-                </div>
-
-
-                <div class="border-[1px] flex flex-col mt-[68px]">
-
-                    <div class="flex items-center gap-4 border-b-[1px] w-full p-3">
-
-                        <img src="desingphoto/icon-delivery.svg" alt="">
-
-                        <div class="flex flex-col">
-
-                            <h3>Free Delivery</h3>
-
-                            <a href="#">Enter your postal code for Delivery Availability</a>
-
-                        </div>
-
-                    </div>
-
-                    <div class="flex items-center gap-4 p-3">
-
-                        <img src="desingphoto/Icon-return.svg" alt="">
-
-                        <div class="flex flex-col">
-
-                            <h3>Return Delivery</h3>
-
-                            <a href="#">Free 30 Days Delivery Returns. Details</a>
-
-                        </div>
-
-                    </div>
-
-                </div>
+                <button
+                    id="clearAllBtn"
+                    class="border-black border-[1px] w-[234px] h-[56px] mr-[90px] text-[16px] transition delay-150 duration-300 ease-in-out hover:-translate-y-1 hover:scale-110 cursor-pointer">Clear
+                    all</button>
 
             </div>
 
+            <div id="basketItemsContainer" class="grid grid-cols-4 gap-20 p-20"></div>
 
+            <p id="totalPrice" class="text-3xl font-medium text-end mr-16 text-red-400"></p>
 
         </section>
-
-
-        <section class="pt-[189px] flex flex-col justify-center p-20">
-
-            <div class="flex items-center gap-[14px] pl-[80px]">
-
-                <img src="desingphoto/Category Rectangle.svg" alt="">
-
-                <p class="text-[#DB4444]">Related Items</p>
-
-            </div>
-
-            <div id="relatedItems" class="grid grid-cols-4 gap-20 p-20"></div>
-
-        </section>
-
 
         <footer class="bg-black text-white flex justify-between gap-[87px] p-20 mt-[179px]">
 
